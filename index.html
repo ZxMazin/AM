@@ -1,747 +1,290 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Géométrie Sphérique – Résumé</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@300;400;600&family=Source+Serif+4:wght@300;400;600&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --navy: #0d1b2a;
-    --deep: #112240;
-    --card: #162a45;
-    --accent: #64c8d4;
-    --gold: #e2b96f;
-    --soft: #a8c8e0;
-    --text: #cfe2f3;
-    --muted: #7a9db8;
-    --white: #f0f8ff;
-    --green: #56c596;
-    --rose: #e07b8a;
-    --border: rgba(100,200,212,0.18);
-  }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Les États de Conscience — Résumé Psycho</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      color: #f0f0f0;
+      padding-bottom: 60px;
+    }
 
-  body {
-    background: var(--navy);
-    color: var(--text);
-    font-family: 'Source Serif 4', serif;
-    font-size: 15px;
-    line-height: 1.75;
-    min-height: 100vh;
-  }
+    /* HEADER */
+    header {
+      text-align: center;
+      padding: 40px 20px 30px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    header .subtitle {
+      font-size: 12px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: #a0c4ff;
+      margin-bottom: 10px;
+    }
+    header h1 {
+      font-size: clamp(1.8rem, 5vw, 3rem);
+      font-weight: 800;
+      background: linear-gradient(90deg, #a0c4ff, #bdb2ff, #ffd6a5);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 8px;
+    }
+    header p {
+      color: #8899aa;
+      font-size: 15px;
+    }
 
-  /* STARFIELD */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image:
-      radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,0.35) 0%, transparent 100%),
-      radial-gradient(1px 1px at 30% 70%, rgba(255,255,255,0.25) 0%, transparent 100%),
-      radial-gradient(1.5px 1.5px at 55% 15%, rgba(255,255,255,0.3) 0%, transparent 100%),
-      radial-gradient(1px 1px at 75% 55%, rgba(255,255,255,0.2) 0%, transparent 100%),
-      radial-gradient(1px 1px at 90% 30%, rgba(255,255,255,0.3) 0%, transparent 100%),
-      radial-gradient(1px 1px at 20% 85%, rgba(255,255,255,0.2) 0%, transparent 100%),
-      radial-gradient(1.5px 1.5px at 65% 80%, rgba(255,255,255,0.25) 0%, transparent 100%),
-      radial-gradient(1px 1px at 45% 45%, rgba(255,255,255,0.15) 0%, transparent 100%),
-      radial-gradient(1px 1px at 85% 90%, rgba(255,255,255,0.2) 0%, transparent 100%);
-    pointer-events: none;
-    z-index: 0;
-  }
+    /* MAIN */
+    main {
+      max-width: 900px;
+      margin: 32px auto 0;
+      padding: 0 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
 
-  .container {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 3rem 2rem 5rem;
-    position: relative;
-    z-index: 1;
-  }
+    /* ACCORDION CARD */
+    .card {
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.04);
+      transition: border-color 0.25s;
+    }
+    .card.open {
+      border-color: var(--c);
+    }
 
-  /* HEADER */
-  header {
-    text-align: center;
-    margin-bottom: 3.5rem;
-    padding-bottom: 2rem;
-    border-bottom: 1px solid var(--border);
-    position: relative;
-  }
+    .card-btn {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 18px 22px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      text-align: left;
+      transition: background 0.25s;
+    }
+    .card.open .card-btn {
+      background: linear-gradient(90deg, color-mix(in srgb, var(--c) 15%, transparent), transparent);
+    }
 
-  .globe-icon {
-    font-size: 3.5rem;
-    display: block;
-    margin-bottom: 0.75rem;
-    filter: drop-shadow(0 0 20px rgba(100,200,212,0.5));
-    animation: pulse 4s ease-in-out infinite;
-  }
+    .card-emoji { font-size: 28px; }
 
-  @keyframes pulse {
-    0%, 100% { filter: drop-shadow(0 0 16px rgba(100,200,212,0.4)); }
-    50% { filter: drop-shadow(0 0 28px rgba(100,200,212,0.7)); }
-  }
+    .card-title {
+      font-weight: 700;
+      font-size: clamp(1rem, 2.5vw, 1.18rem);
+      color: #e0e0e0;
+      flex: 1;
+      transition: color 0.25s;
+    }
+    .card.open .card-title { color: var(--cl); }
 
-  h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: 2.6rem;
-    font-weight: 700;
-    color: var(--white);
-    letter-spacing: 0.01em;
-    line-height: 1.2;
-  }
+    .card-arrow {
+      font-size: 20px;
+      color: #666;
+      transition: transform 0.25s, color 0.25s;
+      display: inline-block;
+    }
+    .card.open .card-arrow {
+      transform: rotate(180deg);
+      color: var(--cl);
+    }
 
-  h1 span { color: var(--accent); }
+    /* CONTENT */
+    .card-body {
+      display: none;
+      padding: 0 22px 22px;
+    }
+    .card.open .card-body { display: block; }
 
-  .subtitle {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.75rem;
-    letter-spacing: 0.25em;
-    color: var(--muted);
-    text-transform: uppercase;
-    margin-top: 0.75rem;
-  }
+    .item {
+      margin-top: 16px;
+      padding: 14px 18px;
+      border-radius: 10px;
+      background: color-mix(in srgb, var(--c) 12%, transparent);
+      border-left: 3px solid var(--c);
+    }
+    .item-label {
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--cl);
+      margin-bottom: 6px;
+    }
+    .item-text {
+      font-size: 14.5px;
+      line-height: 1.65;
+      color: #d0d8e8;
+    }
+    .item-text .break { display: block; margin-top: 8px; }
 
-  /* SECTION */
-  .section {
-    margin-bottom: 2.25rem;
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    overflow: hidden;
-    transition: border-color 0.3s;
-  }
-
-  .section:hover { border-color: rgba(100,200,212,0.4); }
-
-  .section-header {
-    display: flex;
-    align-items: center;
-    gap: 0.9rem;
-    padding: 1rem 1.4rem;
-    background: rgba(100,200,212,0.07);
-    border-bottom: 1px solid var(--border);
-  }
-
-  .section-num {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.15em;
-    color: var(--accent);
-    background: rgba(100,200,212,0.12);
-    padding: 0.2rem 0.55rem;
-    border-radius: 4px;
-    border: 1px solid rgba(100,200,212,0.25);
-    white-space: nowrap;
-  }
-
-  .section-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.15rem;
-    font-weight: 700;
-    color: var(--white);
-  }
-
-  .section-body {
-    padding: 1.3rem 1.5rem;
-  }
-
-  /* SUBSECTION */
-  .sub {
-    margin-bottom: 1.4rem;
-  }
-
-  .sub:last-child { margin-bottom: 0; }
-
-  .sub-title {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.7rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 0.55rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  .sub-title::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: linear-gradient(to right, rgba(226,185,111,0.3), transparent);
-  }
-
-  p {
-    color: var(--text);
-    margin-bottom: 0.5rem;
-    font-size: 0.93rem;
-  }
-
-  p:last-child { margin-bottom: 0; }
-
-  /* MATH FORMULAS */
-  .formula-block {
-    margin: 0.85rem 0;
-    padding: 0.85rem 1.1rem;
-    background: rgba(0,0,0,0.35);
-    border-left: 3px solid var(--accent);
-    border-radius: 0 8px 8px 0;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.82rem;
-    color: var(--white);
-    line-height: 1.9;
-    overflow-x: auto;
-  }
-
-  .formula-block .label {
-    font-size: 0.65rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 0.3rem;
-    font-family: 'JetBrains Mono', monospace;
-  }
-
-  .f-accent { color: var(--accent); font-weight: 600; }
-  .f-gold { color: var(--gold); font-weight: 600; }
-  .f-green { color: var(--green); font-weight: 600; }
-  .f-rose { color: var(--rose); font-weight: 600; }
-
-  /* GRID 2 COL */
-  .grid2 {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-  }
-
-  @media (max-width: 600px) {
-    .grid2 { grid-template-columns: 1fr; }
-    h1 { font-size: 1.9rem; }
-  }
-
-  .mini-card {
-    background: rgba(0,0,0,0.25);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 0.85rem 1rem;
-  }
-
-  .mini-card .mc-title {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--soft);
-    margin-bottom: 0.4rem;
-  }
-
-  /* TABLE */
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.87rem;
-    margin-top: 0.6rem;
-  }
-
-  th {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--accent);
-    padding: 0.55rem 0.75rem;
-    background: rgba(100,200,212,0.08);
-    border-bottom: 1px solid var(--border);
-    text-align: left;
-  }
-
-  td {
-    padding: 0.55rem 0.75rem;
-    border-bottom: 1px solid rgba(100,200,212,0.08);
-    color: var(--text);
-    vertical-align: top;
-  }
-
-  tr:last-child td { border-bottom: none; }
-  tr:hover td { background: rgba(100,200,212,0.04); }
-
-  .badge {
-    display: inline-block;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.62rem;
-    padding: 0.1rem 0.45rem;
-    border-radius: 4px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-  }
-
-  .badge-blue { background: rgba(100,200,212,0.15); color: var(--accent); border: 1px solid rgba(100,200,212,0.3); }
-  .badge-gold { background: rgba(226,185,111,0.15); color: var(--gold); border: 1px solid rgba(226,185,111,0.3); }
-  .badge-green { background: rgba(86,197,150,0.15); color: var(--green); border: 1px solid rgba(86,197,150,0.3); }
-
-  /* HIGHLIGHT BOX */
-  .highlight {
-    background: linear-gradient(135deg, rgba(100,200,212,0.08), rgba(226,185,111,0.06));
-    border: 1px solid rgba(100,200,212,0.25);
-    border-radius: 10px;
-    padding: 1rem 1.2rem;
-    margin: 0.75rem 0;
-  }
-
-  .highlight.gold {
-    background: linear-gradient(135deg, rgba(226,185,111,0.1), rgba(226,185,111,0.04));
-    border-color: rgba(226,185,111,0.3);
-  }
-
-  .highlight.green {
-    background: linear-gradient(135deg, rgba(86,197,150,0.1), rgba(86,197,150,0.04));
-    border-color: rgba(86,197,150,0.3);
-  }
-
-  /* SEPARATOR */
-  .sep {
-    height: 1px;
-    background: linear-gradient(to right, transparent, var(--border), transparent);
-    margin: 1rem 0;
-  }
-
-  /* IMPORTANT NOTE */
-  .note {
-    font-size: 0.82rem;
-    color: var(--muted);
-    font-style: italic;
-    margin-top: 0.4rem;
-  }
-
-  /* LIST */
-  ul.clean {
-    list-style: none;
-    padding: 0;
-  }
-
-  ul.clean li {
-    padding: 0.25rem 0 0.25rem 1.2rem;
-    position: relative;
-    font-size: 0.93rem;
-    color: var(--text);
-  }
-
-  ul.clean li::before {
-    content: '›';
-    position: absolute;
-    left: 0;
-    color: var(--accent);
-    font-weight: 700;
-  }
-
-  /* FOOTER */
-  footer {
-    text-align: center;
-    padding-top: 2.5rem;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.15em;
-    color: var(--muted);
-    text-transform: uppercase;
-  }
-
-  .divider {
-    text-align: center;
-    color: var(--muted);
-    font-size: 1.2rem;
-    margin: 0.5rem 0;
-    opacity: 0.4;
-  }
-
-  em.def {
-    font-style: italic;
-    color: var(--soft);
-  }
-</style>
+    /* FOOTER */
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      color: #667788;
+      font-size: 13px;
+    }
+  </style>
 </head>
 <body>
-<div class="container">
 
-  <header>
-    <span class="globe-icon">🌐</span>
-    <h1>Géométrie <span>Sphérique</span></h1>
-    <p class="subtitle">Résumé complet · Mathématiques appliquées</p>
-  </header>
+<header>
+  <div class="subtitle">3e Année Gymnase OC · Psycho-Pédagogie · Fribourg</div>
+  <h1>Les États de Conscience</h1>
+  <p>Clique sur une section pour la développer · Résumé complet pour l'évaluation</p>
+</header>
 
-  <!-- ===== 1. RAPPELS GÉOMÉTRIQUES ===== -->
-  <div class="section">
-    <div class="section-header">
-      <span class="section-num">01</span>
-      <span class="section-title">Rappels géométriques</span>
-    </div>
-    <div class="section-body">
-      <div class="sub">
-        <div class="sub-title">Définitions fondamentales</div>
-        <ul class="clean">
-          <li><strong>Sphère</strong> : ensemble des points à distance <em class="def">R</em> d'un centre <em class="def">O</em>.</li>
-          <li><strong>Grand cercle</strong> : intersection de la sphère avec un plan passant par <em class="def">O</em>. Rayon = <em class="def">R</em>.</li>
-          <li><strong>Petit cercle</strong> : intersection avec un plan ne passant pas par <em class="def">O</em>.</li>
-          <li><strong>Arc de grand cercle</strong> : plus court chemin entre deux points sur la sphère (<em>géodésique</em>).</li>
-          <li><strong>Angle sphérique</strong> : angle dièdre entre deux plans de grands cercles, mesuré à leur intersection.</li>
-          <li><strong>Triangle sphérique</strong> : trois points A, B, C reliés par des arcs de grands cercles (côtés <em class="def">a, b, c</em> en radians ou degrés).</li>
-        </ul>
-      </div>
-      <div class="sep"></div>
-      <div class="sub">
-        <div class="sub-title">Conventions & notations</div>
-        <div class="grid2">
-          <div class="mini-card">
-            <div class="mc-title">Côtés (angles au centre)</div>
-            <p><span class="f-accent">a</span> = côté opposé à A &nbsp;(= arc BC / R)</p>
-            <p><span class="f-accent">b</span> = côté opposé à B &nbsp;(= arc CA / R)</p>
-            <p><span class="f-accent">c</span> = côté opposé à C &nbsp;(= arc AB / R)</p>
-            <p class="note">Tous compris dans [0°, 180°]</p>
-          </div>
-          <div class="mini-card">
-            <div class="mc-title">Angles (au sommet)</div>
-            <p><span class="f-gold">A</span> = angle en A &nbsp;(entre arcs AB et AC)</p>
-            <p><span class="f-gold">B</span> = angle en B</p>
-            <p><span class="f-gold">C</span> = angle en C</p>
-            <p class="note">A + B + C ∈ (π, 3π)</p>
-          </div>
-        </div>
-      </div>
-      <div class="highlight">
-        <strong>Excès sphérique ε</strong> : différence entre la somme des angles et π.
-        <div class="formula-block">
-          <span class="f-accent">ε = A + B + C − π</span> &nbsp;&nbsp; (ε > 0)
-        </div>
-        En géométrie plane : ε = 0. L'excès mesure la « courbure » du triangle.
-      </div>
-    </div>
-  </div>
+<main id="accordion"></main>
 
-  <!-- ===== 2. COORDONNÉES ===== -->
-  <div class="section">
-    <div class="section-header">
-      <span class="section-num">02</span>
-      <span class="section-title">Coordonnées vectorielles & géographiques</span>
-    </div>
-    <div class="section-body">
-      <div class="sub">
-        <div class="sub-title">Coordonnées géographiques</div>
-        <div class="grid2">
-          <div class="mini-card">
-            <div class="mc-title">Latitude φ</div>
-            <p>Angle entre le plan équatorial et la direction du point.</p>
-            <p><span class="f-gold">φ ∈ [−90°, +90°]</span></p>
-            <p class="note">+ = Nord, − = Sud</p>
-          </div>
-          <div class="mini-card">
-            <div class="mc-title">Longitude λ</div>
-            <p>Angle dièdre entre le méridien origine et le méridien du point.</p>
-            <p><span class="f-gold">λ ∈ [−180°, +180°]</span></p>
-            <p class="note">+ = Est, − = Ouest</p>
-          </div>
-        </div>
-      </div>
-      <div class="sep"></div>
-      <div class="sub">
-        <div class="sub-title">Passage aux coordonnées cartésiennes (vecteur unitaire)</div>
-        <div class="formula-block">
-<div class="label">Point P(φ, λ) → vecteur unitaire r̂</div>
-<span class="f-accent">x</span> = cos φ · cos λ
-<span class="f-accent">y</span> = cos φ · sin λ
-<span class="f-accent">z</span> = sin φ
-        </div>
-        <p>Deux points P₁(φ₁,λ₁) et P₂(φ₂,λ₂) : distance angulaire Δσ (angle au centre) :</p>
-        <div class="formula-block">
-<div class="label">Formule de la corde (produit scalaire)</div>
-cos <span class="f-accent">Δσ</span> = sin φ₁ sin φ₂ + cos φ₁ cos φ₂ cos(λ₂ − λ₁)
-<br><br>
-<div class="label">Distance réelle (arc)</div>
-<span class="f-green">d = R · Δσ</span> &nbsp;&nbsp; (R = 6 371 km pour la Terre)
-        </div>
-      </div>
-      <div class="sep"></div>
-      <div class="sub">
-        <div class="sub-title">Colatitude & sphère unité</div>
-        <p>La <strong>colatitude</strong> θ = 90° − φ (angle depuis le pôle Nord).</p>
-        <p>Sur la sphère unité (R = 1), les côtés du triangle = angles au centre = longueurs d'arcs.</p>
-      </div>
-    </div>
-  </div>
+<footer>✦ Bonne chance pour ton éval ! ✦</footer>
 
-  <!-- ===== 3. TRIANGLE POLAIRE ===== -->
-  <div class="section">
-    <div class="section-header">
-      <span class="section-num">03</span>
-      <span class="section-title">Triangle polaire (supplément)</span>
-    </div>
-    <div class="section-body">
-      <div class="sub">
-        <div class="sub-title">Construction</div>
-        <p>À chaque sommet A d'un triangle sphérique ABC on associe son <strong>pôle</strong> A' : le point tel que les arcs A'B et A'C sont des quarts de cercle (90°). Le triangle A'B'C' ainsi formé est le <em class="def">triangle polaire</em>.</p>
-      </div>
-      <div class="highlight gold">
-        <strong>Relations pôle–triangle :</strong>
-        <div class="formula-block">
-<div class="label">Côtés du triangle polaire ↔ Angles du triangle original</div>
-<span class="f-gold">a'</span> = π − A &nbsp;|&nbsp; <span class="f-gold">b'</span> = π − B &nbsp;|&nbsp; <span class="f-gold">c'</span> = π − C
-<br>
-<span class="f-gold">A'</span> = π − a &nbsp;|&nbsp; <span class="f-gold">B'</span> = π − b &nbsp;|&nbsp; <span class="f-gold">C'</span> = π − c
-        </div>
-        <p class="note">La relation est <strong>réciproque</strong> : le polaire du polaire redonne le triangle initial.</p>
-      </div>
-      <div class="sub">
-        <div class="sub-title">Utilité</div>
-        <p>Transformer une formule en sinus/cosinus des <strong>angles</strong> en une formule en sinus/cosinus des <strong>côtés</strong> (et vice-versa) par simple substitution polaire.</p>
-        <div class="formula-block">
-<div class="label">Exemple : formule des cosinus des angles → côtés via polaire</div>
-cos A = −cos B cos C + sin B sin C · cos a
-<span class="f-muted"> ──────── devient (via a→π−a') ────────</span>
-cos a = −cos b cos c + sin b sin c · cos A
-        </div>
-      </div>
-    </div>
-  </div>
+<script>
+const sections = [
+  {
+    id: "circadien", emoji: "🕐", title: "Rythmes Circadiens",
+    color: "#2D6A4F", light: "#D8F3DC",
+    content: [
+      { sub: "Définition", text: "Rythme de variation des fonctions physiologiques (température, FC, appétit…) sur ~24h. Innés, se synchronisent après la naissance." },
+      { sub: "Centre de contrôle", text: "Noyau suprachiasmatique (NSC) dans l'hypothalamus → glande pinéale → sécrète la mélatonine («hormone du sommeil») selon jour/nuit." },
+      { sub: "Syndrome dépression saisonnière (SAD)", text: "État dépressif lié à la réduction d'ensoleillement en automne/hiver. Disparaît quand les journées rallongent." },
+      { sub: "Travail de nuit & décalage horaire", text: "La «nuit subjective» = période où la T° corporelle est au plus bas et l'horloge biologique dit de dormir. Effets : sommeil fragmenté, insomnie, somnolence, risque dépressif, troubles gastro-intestinaux. Aide jet-lag : s'exposer à la lumière tôt le matin." }
+    ]
+  },
+  {
+    id: "sommeil", emoji: "💤", title: "Le Sommeil",
+    color: "#1B4F72", light: "#D6EAF8",
+    content: [
+      { sub: "Deux types de sommeil", text: "SOMMEIL LENT : ralentissement cérébral, FC/resp. basses et régulières, tension artérielle basse.||SOMMEIL PARADOXAL : activité cérébrale intense (ondes bêta), FC/resp. rapides et irrégulières, mouvements oculaires rapides (REM), paralysie des muscles longs." },
+      { sub: "Stades", text: "Éveil → Ondes bêta | Hypnagogique → Ondes alpha | Stade 1 → transition, ondes irrégulières + alpha | Stade 2 → «ondes en fuseaux», ~50% de la nuit | Stade 3 → 20% ondes delta | Stade 4 → 50–100% delta, sommeil le plus profond | Sommeil paradoxal → ondes bêta (comme l'éveil)" },
+      { sub: "Pourquoi dort-on ?", text: "Théorie de la récupération : le sommeil restaure l'équilibre physiologique (homéostasie).||Théorie circadienne : chez nos ancêtres, le sommeil permettait d'éviter les dangers nocturnes." },
+      { sub: "Fonctions du sommeil", text: "Rôle conjoint sommeil lent + paradoxal dans la consolidation de la mémoire. Microsommeil = épisodes involontaires d'endormissement très brefs (surtout en privation de sommeil)." },
+      { sub: "Évolution avec l'âge", text: "Plus on vieillit, moins on dort : diminution du sommeil lent profond et paradoxal, augmentation des réveils nocturnes et de la latence d'endormissement." }
+    ]
+  },
+  {
+    id: "reves", emoji: "🌙", title: "Les Rêves",
+    color: "#6C3483", light: "#EBD5F7",
+    content: [
+      { sub: "Rêves paradoxal vs lent", text: "Sommeil paradoxal : rêves vivants, narratifs, émotionnels, souvent oubliés au réveil.||Sommeil lent : rêves plus flous, pensées fragmentées, moins cohérents." },
+      { sub: "Théorie freudienne", text: "Les rêves révèlent des désirs inconscients refoulés enracinés dans la vie infantile. Contenu «manifeste» (apparent) vs contenu «latent» (symbolique). Les rêves sont la «voie royale vers l'inconscient»." },
+      { sub: "Théories modernes", text: "Psychologiques : les rêves traitent les émotions et résolvent les problèmes.||Évolutionnistes : simulation de menaces pour s'entraîner à réagir.||Neuroscientifiques : tentatives du cerveau de donner sens aux activations neuronales aléatoires → lien avec la consolidation mémorielle." }
+    ]
+  },
+  {
+    id: "troubles", emoji: "⚠️", title: "Troubles du Sommeil",
+    color: "#B7391B", light: "#FDECEA",
+    content: [
+      { sub: "Parasomnies", text: "Comportements d'éveil survenant pendant le sommeil.||Somnambulisme : stade 4, éveil partiel, marcher/agir en dormant.||Terreur nocturne : stade 4, cri perçant, état de panique, FC élevée.||Cauchemar : sommeil paradoxal, rêve terrifiant.||Somniloquie : parler pendant son sommeil." },
+      { sub: "Insomnie", text: "Touche 1/3 des adultes. Transitoire (<3 sem.) : décalage horaire, stress émotionnel, maladie courte. Chronique (mois/années) : ~10% adultes, liée à problème médical/psychologique. Conséquences : détresse, fatigue, accidents, maladies." },
+      { sub: "Apnée du sommeil", text: "Interruption respiratoire >10 sec., plusieurs fois/nuit → réveils partiels répétés. Cas graves : jusqu'à 800 éveils/nuit → lésions cérébrales, hypertension, troubles cardiaques. Traitement : hygiène de vie (cas léger) ou CPAP – ventilation en pression positive continue (cas grave)." },
+      { sub: "Narcolepsie", text: "Incurable. 1/2000. Somnolence diurne excessive + attaques de sommeil paradoxal (10–20 min). Déclenchée par situations banales ou émotions fortes (rire, colère, surprise). Cause : anomalie cérébrale/génétique. Traitement : médicaments éveillants + siestes planifiées." }
+    ]
+  },
+  {
+    id: "psychotropes", emoji: "💊", title: "Les Psychotropes",
+    color: "#784212", light: "#FDEBD0",
+    content: [
+      { sub: "Définition", text: "Toute substance modifiant l'état de conscience, l'humeur, la perception ou la pensée via la biochimie du SNC (neurotransmetteurs). Agissent sur le circuit plaisir-récompense (dopamine)." },
+      { sub: "Facteurs de risque d'abus", text: "Neurobiologiques : stimulation du noyau accumbens, effet sur le cortex orbitofrontal.||Hérédité : métabolisme de l'alcool, vulnérabilités biologiques.||Psychosociaux : impulsivité, stress, santé mentale, influence des pairs, problèmes sociaux." },
+      { sub: "Dépendance physique", text: "Usage répété → tolérance (adaptation de l'organisme) + symptômes de sevrage (opposés aux effets du produit)." },
+      { sub: "Dépendance psychologique", text: "Désir irrépressible de ressentir les effets. Plus difficile à combattre que la dépendance physique. Rôle du conditionnement (apprentissage par association)." },
+      { sub: "4 facteurs du potentiel addictif", text: "1. Vitesse à laquelle les effets se font sentir||2. Intensité du plaisir ou soulagement procuré||3. Durée des effets agréables||4. Intensité du malaise lors du sevrage" }
+    ]
+  },
+  {
+    id: "stimulants", emoji: "⚡", title: "Stimulants du SNC",
+    color: "#1A5276", light: "#D1F2EB",
+    content: [
+      { sub: "Mécanisme général", text: "Augmentent l'activité du SNC, réduisent la fatigue, donnent l'impression d'être plus alerte. Imitent les effets de l'adrénaline/noradrénaline (système sympathique)." },
+      { sub: "Caféine", text: "Bloque les récepteurs à l'adénosine (substance qui induit la somnolence). Légale et très répandue. Dépendance légère possible (maux de tête au sevrage)." },
+      { sub: "Cocaïne", text: "Bloque la recapture de dopamine et sérotonine → euphorie intense mais brève. Très addictive. Effets : euphorie, confiance, énergie → puis crash, paranoïa, dépression." },
+      { sub: "Amphétamines / MDMA (Ecstasy)", text: "Libèrent massivement dopamine et sérotonine. Ecstasy : empathie, énergie, distorsion du temps → neurotoxicité possible à long terme. Risques : déshydratation, hyperthermie, dépression post-consommation." }
+    ]
+  },
+  {
+    id: "depresseurs", emoji: "🌊", title: "Dépresseurs du SNC",
+    color: "#2C3E50", light: "#D5DBDB",
+    content: [
+      { sub: "Mécanisme général", text: "Diminuent l'activité du SNC, ralentissent les fonctions physiologiques, réduisent la sensibilité aux stimuli extérieurs. Contribuent à réduire l'anxiété. Combinés = effets cumulatifs dangereux." },
+      { sub: "Alcool", text: "Premiers verres → détente, désinhibition. Plus l'alcoolémie monte, plus le SNC dysfonctionne.||0,05 : jugement amoindri, inhibitions réduites.||0,10 : réactions lentes, fonctions motrices réduites.||0,15 : bouche pâteuse, impulsivité.||0,30 : stupeur, incapacité à comprendre l'environnement.||0,40+ : perte de conscience, arrêt cardiorespiratoire possible." },
+      { sub: "Benzodiazépines (BZD)", text: "Ex : Valium, Xanax, Rohypnol. Potentialisent le GABA (neurotransmetteur inhibiteur). Utilisées contre l'anxiété et l'insomnie. Très addictives, sevrage difficile et potentiellement dangereux." },
+      { sub: "Opiacés / Narcotiques", text: "Ex : héroïne, morphine, codéine, fentanyl. Se lient aux récepteurs opioïdes → analgésie intense + euphorie. Dépendance physique et psychologique très forte. Overdose = dépression respiratoire mortelle." },
+      { sub: "Kétamine", text: "Anesthésique dissociatif. Bloque les récepteurs NMDA (glutamate). Effets : dissociation, hallucinations, analgésie. Utilisée en médecine et en contexte festif. Risques : troubles cognitifs, dépendance, coma à forte dose." }
+    ]
+  },
+  {
+    id: "hallucinogenes", emoji: "🔮", title: "Perturbateurs du SNC (Hallucinogènes)",
+    color: "#7D3C98", light: "#F5EEF8",
+    content: [
+      { sub: "Mécanisme général", text: "Perturbent les perceptions du temps et de l'espace, altèrent les émotions, produisent des hallucinations. Modifient l'humeur selon l'état d'esprit de l'usager (set & setting)." },
+      { sub: "Cannabis", text: "Formes : marijuana, haschich, huile, résine. Effets : bien-être, détente, hypersensibilité sensorielle, distorsion temporelle, ralentissement des réflexes. Durée : <4h pour effets principaux, certains effets cognitifs/moteurs persistent 5–12h. Légalisé dans certains pays." },
+      { sub: "LSD", text: "Puissant hallucinogène de synthèse. Agit sur les récepteurs à la sérotonine (5-HT2A). Effets : hallucinations visuelles intenses, distorsion spatiotemporelle, expériences mystiques ou paniques (bad trip). Durée : 8–12h. Pas physiquement addictif mais psychologiquement marquant." },
+      { sub: "MDMA / Ecstasy", text: "Stimulant et empathogène. Libère massivement sérotonine, dopamine, noradrénaline. Sentiment d'amour universel, énergie, euphorie. Risques : hyperthermie, déshydratation (ou hyperhydratation), neurotoxicité sérotoninergique à long terme." }
+    ]
+  }
+];
 
-  <!-- ===== 4. TRIANGLE RECTANGLE ===== -->
-  <div class="section">
-    <div class="section-header">
-      <span class="section-num">04</span>
-      <span class="section-title">Triangle sphérique rectangle</span>
-    </div>
-    <div class="section-body">
-      <div class="sub">
-        <div class="sub-title">Définition</div>
-        <p>Un triangle sphérique est <strong>rectangle en C</strong> si <span class="f-rose">C = 90°</span> (angle droit en C). Le côté <em class="def">c</em> (opposé à C) est l'<em>hypoténuse</em> sphérique.</p>
-      </div>
-      <div class="highlight">
-        <strong>Formules de Napier</strong> (règle du pentagone de Napier) — cas C = π/2 :
-        <div class="formula-block">
-<div class="label">Relations directes</div>
-cos <span class="f-accent">c</span> = cos a · cos b
-<br>
-sin <span class="f-accent">a</span> = sin c · sin A &nbsp;&nbsp;&nbsp;&nbsp; sin <span class="f-accent">b</span> = sin c · sin B
-<br>
-tan <span class="f-accent">a</span> = tan c · cos B &nbsp;&nbsp;&nbsp;&nbsp; tan <span class="f-accent">b</span> = tan c · cos A
-<br>
-tan <span class="f-accent">a</span> = sin b · tan A &nbsp;&nbsp;&nbsp;&nbsp; tan <span class="f-accent">b</span> = sin a · tan B
-<br>
-cos <span class="f-gold">A</span> = cos a · sin B &nbsp;&nbsp;&nbsp;&nbsp; cos <span class="f-gold">B</span> = cos b · sin A
-<br>
-cos <span class="f-accent">c</span> = cot A · cot B
-        </div>
-      </div>
-      <div class="sub">
-        <div class="sub-title">Mémo — Pentagone de Napier</div>
-        <p>Écrire les 5 éléments <em>co-éléments</em> dans l'ordre : <span class="f-green">co-A, b, co-c, a, co-B</span> (en remplaçant c et les angles par leurs compléments). Pour toute partie centrale :</p>
-        <ul class="clean">
-          <li>sin(milieu) = produit des cos(extrêmes) = produit des sin(adjacents)</li>
-        </ul>
-      </div>
-    </div>
-  </div>
+const accordion = document.getElementById('accordion');
 
-  <!-- ===== 5. RÉSOLUTION DU TRIANGLE ===== -->
-  <div class="section">
-    <div class="section-header">
-      <span class="section-num">05</span>
-      <span class="section-title">Résolution du triangle sphérique général</span>
-    </div>
-    <div class="section-body">
-      <div class="sub">
-        <div class="sub-title">Formule fondamentale — cosinus des côtés</div>
-        <div class="formula-block">
-<div class="label">Cosinus des côtés (analogue au théorème d'Al-Kashi)</div>
-cos <span class="f-accent">a</span> = cos b · cos c + sin b · sin c · cos <span class="f-gold">A</span>
-cos <span class="f-accent">b</span> = cos a · cos c + sin a · sin c · cos <span class="f-gold">B</span>
-cos <span class="f-accent">c</span> = cos a · cos b + sin a · sin b · cos <span class="f-gold">C</span>
-        </div>
-      </div>
-      <div class="sub">
-        <div class="sub-title">Formule des sinus</div>
-        <div class="formula-block">
-<div class="label">Loi des sinus sphériques</div>
-sin a / sin <span class="f-gold">A</span> = sin b / sin <span class="f-gold">B</span> = sin c / sin <span class="f-gold">C</span>
-        </div>
-        <p class="note">Attention : ambiguïté possible (sin donne deux valeurs dans [0°,180°]). Utiliser les cosinus pour lever l'ambiguïté.</p>
-      </div>
-      <div class="sub">
-        <div class="sub-title">Formule des cosinus des angles</div>
-        <div class="formula-block">
-<div class="label">Angles en fonction des côtés (formule duale – via polaire)</div>
-cos <span class="f-gold">A</span> = −cos B · cos C + sin B · sin C · cos <span class="f-accent">a</span>
-        </div>
-      </div>
-      <div class="sep"></div>
-      <div class="sub">
-        <div class="sub-title">Cas de résolution courants</div>
-        <table>
-          <thead>
-            <tr>
-              <th>Données connues</th>
-              <th>Méthode</th>
-              <th>Formule clé</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><span class="badge badge-blue">3 côtés (a,b,c)</span></td>
-              <td>Calculer les angles</td>
-              <td>cos A via formule cosinus angles</td>
-            </tr>
-            <tr>
-              <td><span class="badge badge-gold">2 côtés + angle inclus</span><br>(a, b, C)</td>
-              <td>Trouver c, puis A et B</td>
-              <td>cos c → sin A via loi des sinus</td>
-            </tr>
-            <tr>
-              <td><span class="badge badge-green">2 angles + côté opp.</span><br>(A, B, a)</td>
-              <td>Trouver b via sinus, c via cosinus</td>
-              <td>sin b = sin a · sin B / sin A</td>
-            </tr>
-            <tr>
-              <td><span class="badge badge-blue">3 angles (A,B,C)</span></td>
-              <td>Triangle polaire, puis côtés</td>
-              <td>a' = π−A, résoudre A'B'C'</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="sep"></div>
-      <div class="sub">
-        <div class="sub-title">Formules semi-angle (four-parts / demi-angle)</div>
-        <div class="formula-block">
-<div class="label">Tangente du demi-angle (formule de Haversine / Heron sphérique)</div>
-s = (a + b + c) / 2   &nbsp;(demi-périmètre angulaire)
-<br>
-tan(<span class="f-gold">A</span>/2) = √[ sin(s−b)·sin(s−c) / (sin s · sin(s−a)) ]
-        </div>
-      </div>
-    </div>
-  </div>
+sections.forEach(s => {
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.id = s.id;
+  card.style.setProperty('--c', s.color);
+  card.style.setProperty('--cl', s.light);
 
-  <!-- ===== 6. SURFACE ===== -->
-  <div class="section">
-    <div class="section-header">
-      <span class="section-num">06</span>
-      <span class="section-title">Surface d'un triangle sphérique</span>
-    </div>
-    <div class="section-body">
-      <div class="sub">
-        <div class="sub-title">Théorème de Girard</div>
-        <div class="highlight green">
-          <p>L'aire d'un triangle sphérique sur une sphère de rayon R est :</p>
-          <div class="formula-block">
-<span class="f-green">S = R² · ε = R² · (A + B + C − π)</span>
-<br>
-<div class="label" style="margin-top:0.5rem;">ε = excès sphérique (en radians)</div>
-          </div>
-        </div>
-      </div>
-      <div class="sub">
-        <div class="sub-title">Calcul pratique de l'excès</div>
-        <p>Si les angles sont donnés en degrés :</p>
-        <div class="formula-block">
-ε° = A° + B° + C° − 180°
-<br>
-S = R² · (ε° · π / 180°)
-        </div>
-      </div>
-      <div class="sub">
-        <div class="sub-title">Fraction de la sphère totale</div>
-        <div class="formula-block">
-<div class="label">Surface totale de la sphère = 4πR²</div>
-<span class="f-green">S / (4πR²)</span> = ε / (4π) = (A + B + C − π) / (4π)
-        </div>
-      </div>
-      <div class="sep"></div>
-      <div class="sub">
-        <div class="sub-title">Lien entre surface et triangle polaire</div>
-        <p>Si S est l'aire de ABC et S' l'aire du polaire A'B'C' :</p>
-        <div class="formula-block">
-S  = R² (A + B + C − π)
-S' = R² (a + b + c − π)
-S + S' = <span class="f-accent">2πR²</span>  &nbsp;(demi-sphère)
-        </div>
-      </div>
-      <div class="sep"></div>
-      <div class="sub">
-        <div class="sub-title">Formule de L'Huilier (à partir des côtés uniquement)</div>
-        <div class="formula-block">
-<div class="label">s = (a+b+c)/2</div>
-tan(ε/4) = √[ tan(s/2)·tan((s−a)/2)·tan((s−b)/2)·tan((s−c)/2) ]
-<br>
-<span class="f-green">S = 4R² · arctan( √[...] )</span>
-        </div>
-        <p class="note">Utile quand les angles ne sont pas directement connus.</p>
-      </div>
-    </div>
-  </div>
+  // Button
+  const btn = document.createElement('button');
+  btn.className = 'card-btn';
+  btn.innerHTML = `
+    <span class="card-emoji">${s.emoji}</span>
+    <span class="card-title">${s.title}</span>
+    <span class="card-arrow">▾</span>
+  `;
 
-  <!-- ===== TABLEAU RÉCAP ===== -->
-  <div class="section">
-    <div class="section-header">
-      <span class="section-num">∑</span>
-      <span class="section-title">Tableau récapitulatif des formules essentielles</span>
-    </div>
-    <div class="section-body">
-      <table>
-        <thead>
-          <tr>
-            <th>Nom</th>
-            <th>Formule</th>
-            <th>Utilisation</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><span class="badge badge-blue">Cosinus côtés</span></td>
-            <td>cos a = cos b cos c + sin b sin c cos A</td>
-            <td>Trouver un côté ou un angle</td>
-          </tr>
-          <tr>
-            <td><span class="badge badge-gold">Cosinus angles</span></td>
-            <td>cos A = −cos B cos C + sin B sin C cos a</td>
-            <td>Angles à partir des côtés</td>
-          </tr>
-          <tr>
-            <td><span class="badge badge-green">Sinus</span></td>
-            <td>sin a / sin A = sin b / sin B = sin c / sin C</td>
-            <td>Proportionnalité</td>
-          </tr>
-          <tr>
-            <td><span class="badge badge-blue">Napier (rect.)</span></td>
-            <td>cos c = cos a cos b &nbsp;(si C=90°)</td>
-            <td>Triangle rectangle</td>
-          </tr>
-          <tr>
-            <td><span class="badge badge-gold">Girard</span></td>
-            <td>S = R²(A+B+C−π)</td>
-            <td>Aire du triangle</td>
-          </tr>
-          <tr>
-            <td><span class="badge badge-green">L'Huilier</span></td>
-            <td>tan(ε/4) = √[tan(s/2)·tan(…)]</td>
-            <td>Aire à partir des 3 côtés</td>
-          </tr>
-          <tr>
-            <td><span class="badge badge-blue">Polaire</span></td>
-            <td>a' = π−A, A' = π−a</td>
-            <td>Dualité côtés/angles</td>
-          </tr>
-          <tr>
-            <td><span class="badge badge-gold">Distance géog.</span></td>
-            <td>cos Δσ = sin φ₁ sin φ₂ + cos φ₁ cos φ₂ cos Δλ</td>
-            <td>Distance entre deux points</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
+  // Body
+  const body = document.createElement('div');
+  body.className = 'card-body';
 
-  <footer>
-    <p>Géométrie Sphérique · Mathématiques Appliquées · ∀ R > 0</p>
-    <p style="margin-top:0.4rem; opacity:0.5;">Sur la sphère, l'espace est courbé — les droites deviennent des cercles.</p>
-  </footer>
+  s.content.forEach(item => {
+    const div = document.createElement('div');
+    div.className = 'item';
 
-</div>
+    const parts = item.text.split('||');
+    const textHtml = parts.map((p, i) =>
+      i === 0 ? p : `<span class="break">${p}</span>`
+    ).join('');
+
+    div.innerHTML = `<div class="item-label">${item.sub}</div><div class="item-text">${textHtml}</div>`;
+    body.appendChild(div);
+  });
+
+  // Toggle
+  btn.addEventListener('click', () => {
+    const isOpen = card.classList.contains('open');
+    // Close all
+    document.querySelectorAll('.card.open').forEach(c => c.classList.remove('open'));
+    if (!isOpen) card.classList.add('open');
+  });
+
+  card.appendChild(btn);
+  card.appendChild(body);
+  accordion.appendChild(card);
+});
+</script>
 </body>
 </html>

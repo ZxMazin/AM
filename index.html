@@ -520,36 +520,36 @@ function showQuizQuestion() {
   sections.forEach(s => s.content.forEach(i => allTexts.push(i.text)));
   const distractors = shuffle(allTexts.filter(t => t !== item.text)).slice(0, 3);
   const options = shuffle([item.text, ...distractors]);
+  const correctIdx = options.indexOf(item.text);
 
   container.innerHTML = `
     <div class="quiz-card">
       <div style="font-size:12px; color:#a0c4ff; margin-bottom:10px">Question ${quizIndex + 1} / 10 · ${item.sectionTitle}</div>
       <h3 style="margin-bottom:20px">${item.sub}</h3>
       <div class="options-grid">
-        ${options.map(opt => {
-          const escapedOpt = opt.replace(/'/g, "\\'").replace(/"/g, "&quot;");
-          const escapedCorrect = item.text.replace(/'/g, "\\'");
-          return `<button class="option-btn" data-value="${escapedOpt}" onclick="checkQuizAnswer(this, '${escapedCorrect}')">${opt.replace(/\|\|/g, '<br>')}</button>`;
+        ${options.map((opt, index) => {
+          return `<button class="option-btn" onclick="checkQuizAnswer(this, ${index}, ${correctIdx})">${opt.replace(/\|\|/g, '<br>')}</button>`;
         }).join('')}
       </div>
     </div>
   `;
 }
 
-function checkQuizAnswer(btn, correct) {
-  const selected = btn.getAttribute('data-value');
+function checkQuizAnswer(btn, selectedIdx, correctIdx) {
   const buttons = document.querySelectorAll('.option-btn');
-  buttons.forEach(b => {
+  buttons.forEach((b, index) => {
     b.disabled = true;
-    if (b.getAttribute('data-value') === correct) {
+    if (index === correctIdx) {
       b.classList.add('correct');
+      b.innerHTML += ' ✓';
+    } else if (index === selectedIdx) {
+      b.classList.add('wrong');
+      b.innerHTML += ' ✗';
     }
   });
 
-  if (selected === correct) {
+  if (selectedIdx === correctIdx) {
     quizScore++;
-  } else {
-    btn.classList.add('wrong');
   }
 
   setTimeout(() => {
